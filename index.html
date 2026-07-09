@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aqua Clean Employee Suggestion & Request Form</title>
+    
+    <!-- Direct Qatar flag - will always work -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇶🇦</text></svg>">
+    
     <style>
         body, html {
             margin: 0;
@@ -13,8 +17,8 @@
         .responsive-iframe-container {
             position: relative;
             width: 100%;
-            height: 100vh; /* Full viewport height */
-            overflow: auto; /* Enable scrolling */
+            height: 100vh;
+            overflow: auto;
         }
         .responsive-iframe-container iframe {
             position: absolute;
@@ -23,13 +27,75 @@
             width: 100%;
             height: 100%;
             border: 0;
-            overflow: auto; /* Ensure iframe itself can scroll */
+            overflow: auto;
         }
     </style>
 </head>
 <body>
     <div class="responsive-iframe-container">
-        <iframe src="https://script.google.com/macros/s/AKfycbzTWmTjFPr7QY4l7xTedFQsgaENKJcRZh6LxUoTJaK7FtGzjzufoFbJ2DIjmQ3JqFrX/exec" allowfullscreen></iframe>
+        <iframe src="https://script.google.com/macros/s/AKfycbw92SzBBiKeuplyQinMyNX0cO01cLXVLjKoYa_sDRJ7qP_tUwoaMu59KUFSOH3Q52bI/exec" allowfullscreen></iframe>
     </div>
+
+    <script>
+        // Simple emoji flag - works in all modern browsers
+        function updateFavicon(countryCode) {
+            try {
+                // Map country codes to emoji flags
+                const flagEmojis = {
+                    'QA': '🇶🇦', 'IN': '🇮🇳', 'US': '🇺🇸', 'GB': '🇬🇧',
+                    'AE': '🇦🇪', 'SA': '🇸🇦', 'KW': '🇰🇼', 'OM': '🇴🇲',
+                    'BH': '🇧🇭', 'EG': '🇪🇬', 'JO': '🇯🇴', 'LB': '🇱🇧',
+                    'IR': '🇮🇷', 'IQ': '🇮🇶', 'SY': '🇸🇾', 'YE': '🇾🇪',
+                    'TR': '🇹🇷', 'PK': '🇵🇰', 'BD': '🇧🇩', 'MY': '🇲🇾',
+                    'ID': '🇮🇩', 'PH': '🇵🇭', 'SG': '🇸🇬', 'TH': '🇹🇭',
+                    'VN': '🇻🇳', 'CN': '🇨🇳', 'JP': '🇯🇵', 'KR': '🇰🇷',
+                    'RU': '🇷🇺', 'DE': '🇩🇪', 'FR': '🇫🇷', 'IT': '🇮🇹',
+                    'ES': '🇪🇸', 'PT': '🇵🇹', 'NL': '🇳🇱', 'BE': '🇧🇪',
+                    'CH': '🇨🇭', 'AT': '🇦🇹', 'SE': '🇸🇪', 'NO': '🇳🇴',
+                    'DK': '🇩🇰', 'FI': '🇫🇮', 'PL': '🇵🇱', 'GR': '🇬🇷',
+                    'ZA': '🇿🇦', 'NG': '🇳🇬', 'KE': '🇰🇪', 'GH': '🇬🇭',
+                    'MA': '🇲🇦', 'DZ': '🇩🇿', 'TN': '🇹🇳', 'LY': '🇱🇾',
+                    'AU': '🇦🇺', 'NZ': '🇳🇿', 'CA': '🇨🇦', 'MX': '🇲🇽',
+                    'BR': '🇧🇷', 'AR': '🇦🇷', 'CL': '🇨🇱', 'CO': '🇨🇴',
+                    'PE': '🇵🇪', 'VE': '🇻🇪', 'IL': '🇮🇱', 'PS': '🇵🇸'
+                };
+
+                const favicon = document.querySelector('link[rel="icon"]');
+                if (favicon && countryCode && flagEmojis[countryCode]) {
+                    const emoji = flagEmojis[countryCode];
+                    favicon.href = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${emoji}</text></svg>`;
+                    console.log(`Favicon updated to: ${countryCode} ${emoji}`);
+                }
+            } catch (e) {
+                console.log('Using default Qatar flag');
+            }
+        }
+
+        // Simple country detection
+        function detectCountry() {
+            fetch('https://ipapi.co/country/', {
+                signal: AbortSignal.timeout(3000)
+            })
+            .then(response => response.text())
+            .then(countryCode => {
+                if (countryCode && countryCode.trim().length === 2) {
+                    updateFavicon(countryCode.trim().toUpperCase());
+                }
+            })
+            .catch(() => {
+                // Use default Qatar flag
+                console.log('Using default Qatar flag');
+            });
+        }
+
+        // Run on load
+        if (document.readyState === 'complete') {
+            setTimeout(detectCountry, 100);
+        } else {
+            window.addEventListener('load', function() {
+                setTimeout(detectCountry, 100);
+            });
+        }
+    </script>
 </body>
 </html>
